@@ -1,0 +1,43 @@
+@import url(//fonts.googleapis.com/earlyaccess/cwtexyen.css);
+body {
+    font-family: 'cwTeXYen', sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+
+main {
+    background-color: antiquewhite;
+    flex: 1 0 auto;
+    font-weight:bold;
+}
+
+nav.nav-extended.menu {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.menu ul li a {
+    font-size: 20px;
+}
+
+.text {
+    /* width: 400px;
+    font-size: 15px; */
+    text-indent: 2em;
+    text-align: justify;
+}
+
+
+
+
+.nav-extended {
+    background-color: rgba(0, 0, 0, 0.8)
+}
+
+footer.page-footer {
+    background-color: rgba(0, 0, 0, 0.8)
+}
