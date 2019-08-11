@@ -65,7 +65,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
   <main>
     <div class="row container">
       <form id="indexPhoto" class="col s12">
-      <input type="hidden" id="id" value="<?php echo $data[0]['id']; ?>">
+      <input type="hidden" id="id" value="<?php echo $data['id']; ?>">
         <div class="file-field input-field">
           <div class="btnEdit btn blue-grey lighten-5">
             <span class="black-text">照片</span>
@@ -84,7 +84,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
               <p>原始照片</p>
             </div>
             <div class="col s12">
-              <img class="responsive-img showImg" src="../<?php echo ($data[0]['photo_path']); ?>">
+              <img class="responsive-img showImg" src="../<?php echo ($data['photo_path']); ?>">
             </div>
           </div>
           <div class="col s6">
@@ -101,14 +101,14 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
 
 
         <div class="input-field col s12">
-          <input id="imgTitle" type="text" class="validate" value="<?php echo (ucfirst($data[0]['username'])); ?>">
+          <input id="imgTitle" type="text" class="validate" value="<?php echo (ucfirst($data['username'])); ?>">
           <label for="imgTitle">主角</label>
         </div>
 
 
         <div class="row">
           <div class="input-field col s12">
-            <textarea id="photoContent1" class="materialize-textarea" cols="30" rows="20"><?php echo ($data[0]['content_one']); ?></textarea>
+            <textarea id="photoContent1" class="materialize-textarea" cols="30" rows="20"><?php echo ($data['content_one']); ?></textarea>
             <label for="photoContent1">第一段</label>
           </div>
         </div>
@@ -116,7 +116,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
 
         <div class="row">
           <div class="input-field col s12">
-            <textarea id="photoContent2" class="materialize-textarea" cols="30" rows="20"><?php echo ($data[0]['content_two']); ?></textarea>
+            <textarea id="photoContent2" class="materialize-textarea" cols="30" rows="20"><?php echo ($data['content_two']); ?></textarea>
             <label for="photoContent2">第二段</label>
           </div>
         </div>

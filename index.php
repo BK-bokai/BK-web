@@ -57,15 +57,15 @@ $work_skills=get_work_skills();
       <div class="col s12 m6">
         <div class="card">
           <div class="card-image">
-            <img src="<?php echo ($data[0]['photo_path']); ?>">
-            <span class="card-title"> <?php echo (ucfirst($data[0]['username'])); ?> </span>
+            <img src="<?php echo ($data['photo_path']); ?>">
+            <span class="card-title"> <?php echo (ucfirst($data['username'])); ?> </span>
           </div>
           <div class="card-content">
             <p class="text" >    
-            <?php echo ($data[0]['content_one']); ?>
+            <?php echo ($data['content_one']); ?>
             </p>
             <p class="text">
-            <?php echo ($data[0]['content_two']); ?>
+            <?php echo ($data['content_two']); ?>
             </p>
           </div>
         </div>
@@ -73,14 +73,14 @@ $work_skills=get_work_skills();
 
       <div class="intro col s12 m6">
         <p class="text">
-          <?php echo ($student[0]['content'])?>
+          <?php echo ($student['content'])?>
         </p>
         <?php foreach ($student_skills as $StudentSkill) :?>
         <a class="waves-effect waves-light btn"> <?php echo ($StudentSkill['skill_name'])?> </a>
         <?php endforeach?>
         <hr>
         <p class="text">
-          <?php echo ($work[0]['content'])?>
+          <?php echo ($work['content'])?>
           <br>
         </p>
         <?php foreach ($work_skills as $WorkSkill) :?>

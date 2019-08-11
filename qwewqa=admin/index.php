@@ -66,18 +66,18 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
       <div class="col s12 m6">
         <div class="card">
           <div class="card-image">
-            <img src="../<?php echo ($data[0]['photo_path']); ?>">
+            <img src="../<?php echo ($data['photo_path']); ?>">
             <span class="card-title">
-              <?php echo (ucfirst($data[0]['username'])); ?>
+              <?php echo (ucfirst($data['username'])); ?>
               <a class="btn 80cbc4 teal lighten-3 btnEdit" href="indexphotoEdit.php">編輯</a>
             </span>
           </div>
           <div class="card-content">
             <p class="text">
-              <?php echo ($data[0]['content_one']); ?>
+              <?php echo ($data['content_one']); ?>
             </p>
             <p class="text">
-              <?php echo ($data[0]['content_two']); ?>
+              <?php echo ($data['content_two']); ?>
             </p>
           </div>
         </div>
@@ -85,14 +85,14 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
 
       <div class="intro col s12 m6">
         <p class="text">
-          <?php echo ($student[0]['content']) ?>
+          <?php echo ($student['content']) ?>
         </p>
         <?php foreach ($student_skills as $StudentSkill) : ?>
           <a class="waves-effect waves-light btn"> <?php echo ($StudentSkill['skill_name']) ?> </a>
         <?php endforeach ?>
         <hr>
         <p class="text">
-          <?php echo ($work[0]['content']) ?>
+          <?php echo ($work['content']) ?>
           <br>
         </p>
         <?php foreach ($work_skills as $WorkSkill) : ?>

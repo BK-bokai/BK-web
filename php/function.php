@@ -8,10 +8,8 @@ function get_index_photo()
    $query = mysqli_query($_SESSION['link'], $sql);
 
    if ($query) {
-      if (mysqli_num_rows($query) > 0) {
-         while ($row = mysqli_fetch_assoc($query)) {
-            $data[] = $row;
-         }
+      if (mysqli_num_rows($query) == 1) {
+            $data = mysqli_fetch_assoc($query);
       }
    } else {
       echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
@@ -26,10 +24,8 @@ function get_student()
    $query = mysqli_query($_SESSION['link'], $sql);
 
    if ($query) {
-      if (mysqli_num_rows($query) > 0) {
-         while ($row = mysqli_fetch_assoc($query)) {
-            $data[] = $row;
-         }
+      if (mysqli_num_rows($query) == 1) {
+            $data = mysqli_fetch_assoc($query);
       }
    } else {
       echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
@@ -62,10 +58,8 @@ function get_work()
    $query = mysqli_query($_SESSION['link'], $sql);
 
    if ($query) {
-      if (mysqli_num_rows($query) > 0) {
-         while ($row = mysqli_fetch_assoc($query)) {
-            $data[] = $row;
-         }
+      if (mysqli_num_rows($query) == 1) {
+            $data = mysqli_fetch_assoc($query);
       }
    } else {
       echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
@@ -133,9 +127,9 @@ function update_index_photo($id, $username, $photo_path, $content_one, $content_
    $photo_sql='';
    if($photo_path != '')
    {
-      if(is_file("../".get_index_photo()[0]['photo_path']))
+      if(is_file("../".get_index_photo()['photo_path']))
       {
-         unlink("../".get_index_photo()[0]['photo_path']);
+         unlink("../".get_index_photo()['photo_path']);
       }
       
       $photo_sql="`photo_path` = '{$photo_path}',";
