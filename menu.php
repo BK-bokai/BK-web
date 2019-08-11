@@ -11,6 +11,7 @@
       <li><a href="index.php">首頁</a></li>
       <li><a href="images.php">照片清單</a></li>
       <li><a href="work.php">作品集</a></li>
+      <li><a href="login.php">會員登入</a></li>
     </ul>
   </div>
 

@@ -32,7 +32,9 @@ nav.nav-extended.menu {
 }
 
 
-
+.work_list{
+    margin-top: 6%;
+}
 
 .nav-extended {
     background-color: rgba(0, 0, 0, 0.8)
@@ -40,4 +42,14 @@ nav.nav-extended.menu {
 
 footer.page-footer {
     background-color: rgba(0, 0, 0, 0.8)
+}
+
+span.member {
+    font-size: 21px;
+}
+
+div.login{
+    margin-top: 10%;
+    padding-right: 15%;
+    padding-left: 15%;
 }
