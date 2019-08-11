@@ -110,21 +110,56 @@ function get_images()
 function check_user($un, $pw)
 {
    $result = null;
-   $pw=md5($pw);
+   $pw = md5($pw);
    $sql = "SELECT * FROM `user` WHERE `username`= '{$un}' AND `password` = '{$pw}'";
    $query = mysqli_query($_SESSION['link'], $sql);
 
    if ($query) {
       if (mysqli_num_rows($query) == 1) {
          $user = mysqli_fetch_assoc($query);
-         $_SESSION['login']=true;
-         $_SESSION['login_user_id']=$user['id'];
+         $_SESSION['login'] = true;
+         $_SESSION['login_user_id'] = $user['id'];
+         $result = true;
+      }
+   } else {
+      echo ("{$sql}語法執行失敗，錯誤訊息:" . mysqli_error($_SESSION['link']));
+   }
+   return $result;
+}
+
+function update_index_photo($id, $username, $photo_path, $content_one, $content_two)
+{
+   $result = null;
+   $photo_sql='';
+   if($photo_path != '')
+   {
+      if(is_file("../".get_index_photo()[0]['photo_path']))
+      {
+         unlink("../".get_index_photo()[0]['photo_path']);
+      }
+      
+      $photo_sql="`photo_path` = '{$photo_path}',";
+   }
+
+   $sql    = "UPDATE `index_photo` SET
+               `username` = '{$username}',
+               $photo_sql
+               `content_one` = '{$content_one}',
+               `content_two` = '{$content_two}'
+               WHERE `id` = {$id};";
+
+   $query = mysqli_query($_SESSION['link'],$sql);
+
+   if($query)
+   {
+      if(mysqli_affected_rows($_SESSION['link']) == 1)
+      {
          $result = true;
       }
    }
    else 
    {
-      echo ("{$sql}語法執行失敗，錯誤訊息:" . mysqli_error($_SESSION['link']));
+      echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
    }
-   return $result;
+return $result;
 }

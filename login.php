@@ -49,8 +49,6 @@ require_once "php/function.php";
 
   <main>
     <div class="row container login">
-
-
       <form class="col s12 loginform">
 
         <div class="row">
@@ -67,9 +65,23 @@ require_once "php/function.php";
           </div>
         </div>
 
-        <button class="btn waves-effect waves-light test" type="submit">登入
-          <i class="material-icons right">send</i>
-        </button>
+        <div class="row">
+          <div class="col s6">
+            <button class="btn waves-effect waves-light test" type="submit">登入
+              <i class="material-icons right">send</i>
+            </button>
+            
+          </div>
+
+          <?php if (isset($_GET['msg'])) : ?>
+            <div class="col s6">
+              <p class="error"><?php echo $_GET['msg'] ?></p>
+            </div>
+          <?php endif ?>
+
+        </div>
+
+
       </form>
     </div>
   </main>
@@ -90,7 +102,7 @@ require_once "php/function.php";
       //       以下開始是登入動作
       $('form.loginform').on('submit', function() {
         alert("submit");
-        
+
         $.ajax({
           type: "POST",
           url: "php/check.php",
@@ -103,7 +115,7 @@ require_once "php/function.php";
           console.log(data)
           if (data == 'yes') {
             alert('登入成功');
-            window.location.href='qwewqa=admin/index.php';
+            window.location.href = 'qwewqa=admin/index.php';
           } else {
             alert('登入失敗，請確認帳號密碼');
           }

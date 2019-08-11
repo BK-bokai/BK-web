@@ -1,11 +1,20 @@
 <?php
-// require_once "php/db.php";
-// require_once "php/function.php";
-// $data=get_index_photo();
-// $student=get_student();
-// $student_skills=get_student_skills();
-// $work=get_work();
-// $work_skills=get_work_skills();
+@session_start();
+require_once "../php/db.php";
+require_once "../php/function.php";
+$data = get_index_photo();
+$student = get_student();
+$student_skills = get_student_skills();
+$work = get_work();
+$work_skills = get_work_skills();
+?>
+<?php
+
+
+if (!isset($_SESSION['login']) || !$_SESSION['login']) {
+  //直接轉跳到 login.php
+  header("Location: ../login.php?msg=請正確登入");
+}
 ?>
 
 
@@ -16,7 +25,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>BK</title>
+  <title>BK-Admin</title>
 
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -38,7 +47,7 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
   <!--css樣式-->
-  <link rel="stylesheet" href="css/style.css" charset="utf-8">
+  <link rel="stylesheet" href="../css/style.css" charset="utf-8">
 
   <link rel="Shortcut Icon" type="image/x-icon" href="img/PBLAP_logo_small_c.png">
 
@@ -53,7 +62,43 @@
 
 
   <main>
-    這裡是後台
+    <div class="row container">
+      <div class="col s12 m6">
+        <div class="card">
+          <div class="card-image">
+            <img src="../<?php echo ($data[0]['photo_path']); ?>">
+            <span class="card-title">
+              <?php echo (ucfirst($data[0]['username'])); ?>
+              <a class="btn 80cbc4 teal lighten-3 btnEdit" href="indexphotoEdit.php">編輯</a>
+            </span>
+          </div>
+          <div class="card-content">
+            <p class="text">
+              <?php echo ($data[0]['content_one']); ?>
+            </p>
+            <p class="text">
+              <?php echo ($data[0]['content_two']); ?>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="intro col s12 m6">
+        <p class="text">
+          <?php echo ($student[0]['content']) ?>
+        </p>
+        <?php foreach ($student_skills as $StudentSkill) : ?>
+          <a class="waves-effect waves-light btn"> <?php echo ($StudentSkill['skill_name']) ?> </a>
+        <?php endforeach ?>
+        <hr>
+        <p class="text">
+          <?php echo ($work[0]['content']) ?>
+          <br>
+        </p>
+        <?php foreach ($work_skills as $WorkSkill) : ?>
+          <a class="waves-effect waves-light btn"> <?php echo ($WorkSkill['skill_name']) ?> </a>
+        <?php endforeach ?>
+      </div>
   </main>
 
 

@@ -53,3 +53,19 @@ div.login{
     padding-right: 15%;
     padding-left: 15%;
 }
+
+
+.error{
+    color: red;
+    font-size: 21px;
+    margin: 0;
+}
+
+.btnEdit{
+    font-size: 21px;
+}
+
+.showImg{
+    height: 50%;
+    width: 50%;
+}

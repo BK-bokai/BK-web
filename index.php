@@ -57,7 +57,7 @@ $work_skills=get_work_skills();
       <div class="col s12 m6">
         <div class="card">
           <div class="card-image">
-            <img src="img/IMAG1287.jpg">
+            <img src="<?php echo ($data[0]['photo_path']); ?>">
             <span class="card-title"> <?php echo (ucfirst($data[0]['username'])); ?> </span>
           </div>
           <div class="card-content">
