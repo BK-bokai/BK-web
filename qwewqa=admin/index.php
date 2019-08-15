@@ -69,7 +69,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
             <img src="../<?php echo ($data['photo_path']); ?>">
             <span class="card-title">
               <?php echo (ucfirst($data['username'])); ?>
-              <a class="btn 80cbc4 teal lighten-3 btnEdit" href="indexphotoEdit.php">編輯</a>
+              <a class="btn 80cbc4 teal lighten-3 btnEdit blue-grey lighten-4 black-text" href="indexphotoEdit.php">編輯</a>
             </span>
           </div>
           <div class="card-content">
@@ -86,17 +86,25 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
       <div class="intro col s12 m6">
         <p class="text">
           <?php echo ($student['content']) ?>
+          <!-- <a class="btn 80cbc4 teal lighten-3 btnEdit" href="studentEdit.php">編輯</a> -->
+          <button id='studentCon' class="btn waves-effect waves-light blue-grey lighten-4 black-text btnEdit">編輯</button>
+          <!-- <span id='studentCon' type='button' class="edit">編輯</span> -->
         </p>
+
         <?php foreach ($student_skills as $StudentSkill) : ?>
-          <a class="waves-effect waves-light btn"> <?php echo ($StudentSkill['skill_name']) ?> </a>
+        <a class="waves-effect waves-light btn"> <?php echo ($StudentSkill['skill_name']) ?> </a>
         <?php endforeach ?>
+        <!-- <a href="" type='button'>編輯</a> -->
+        <!-- <span id='studentSkill' type='button' class="edit">編輯</span> -->
+        <button id='studentSkill' class="btn waves-effect waves-light blue-grey lighten-4 black-text btnEdit">編輯</button>
+
         <hr>
         <p class="text">
           <?php echo ($work['content']) ?>
           <br>
         </p>
         <?php foreach ($work_skills as $WorkSkill) : ?>
-          <a class="waves-effect waves-light btn"> <?php echo ($WorkSkill['skill_name']) ?> </a>
+        <a class="waves-effect waves-light btn"> <?php echo ($WorkSkill['skill_name']) ?> </a>
         <?php endforeach ?>
       </div>
   </main>
@@ -109,6 +117,14 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
   <script>
     $(document).ready(function() {
       $('.sidenav').sidenav();
+
+      $('#studentSkill').on('click',function(){
+        window.location.href = "studentSkill.php"
+      })
+
+      $('#studentCon').on('click',function(){
+        window.location.href = "studentCon.php"
+      })
     });
   </script>
 

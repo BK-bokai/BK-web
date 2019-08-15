@@ -157,3 +157,75 @@ function update_index_photo($id, $username, $photo_path, $content_one, $content_
    }
 return $result;
 }
+
+function update_student($id, $content)
+{
+   $result = null;
+
+
+   $sql    = "UPDATE `student` SET
+               `content` = '{$content}'
+               WHERE `id` = {$id};";
+
+   $query = mysqli_query($_SESSION['link'],$sql);
+
+   if($query)
+   {
+      if(mysqli_affected_rows($_SESSION['link']) == 1)
+      {
+         $result = true;
+      }
+   }
+   else 
+   {
+      echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+   }
+return $result;
+}
+
+function del_student_skill($id)
+{
+   $result = null;
+   $sql = "DELETE FROM `student_skills` WHERE `id` = {$id} ";
+   $query = mysqli_query($_SESSION['link'],$sql);
+
+   
+   if($query)
+   {
+      if(mysqli_affected_rows($_SESSION['link'])==1)
+      {
+         $result = true;
+      }
+   }
+   else
+  {
+    echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+  }
+  return $result;
+}
+
+function add_student_skill($skill_name)
+{
+
+   $result = null;
+   $create_time = date("Y-m-d H:i:s");
+
+  $sql = "INSERT INTO `student_skills` (`skill_name`, `create_time`) VALUE ('{$skill_name}', '{$create_time}');";
+
+  $query = mysqli_query($_SESSION['link'], $sql);
+
+  if ($query)
+  {
+    if(mysqli_affected_rows($_SESSION['link']) == 1)
+    {
+
+      $result = true;
+    }
+  }
+  else
+  {
+    echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+  }
+
+  return $result;
+}
