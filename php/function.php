@@ -84,6 +84,23 @@ function get_work_skills()
    }
    return $data;
 }
+function get_publish_images()
+{
+   $data = array();
+   $sql = "SELECT * FROM `images` WHERE `publish` = 1";
+   $query = mysqli_query($_SESSION['link'], $sql);
+   if ($query) {
+      if (mysqli_num_rows($query) > 0) {
+         while ($row = mysqli_fetch_assoc($query)) {
+            $data[] = $row;
+         }
+      }
+   } else {
+      echo ("{$sql}語法執行失敗，錯誤訊息:" . mysqli_error($_SESSION['link']));
+   }
+   return $data;
+}
+
 function get_images()
 {
    $data = array();
@@ -183,6 +200,31 @@ function update_student($id, $content)
 return $result;
 }
 
+function update_worker($id, $content)
+{
+   $result = null;
+
+
+   $sql    = "UPDATE `worker` SET
+               `content` = '{$content}'
+               WHERE `id` = {$id};";
+
+   $query = mysqli_query($_SESSION['link'],$sql);
+
+   if($query)
+   {
+      if(mysqli_affected_rows($_SESSION['link']) == 1)
+      {
+         $result = true;
+      }
+   }
+   else 
+   {
+      echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+   }
+return $result;
+}
+
 function del_student_skill($id)
 {
    $result = null;
@@ -204,6 +246,28 @@ function del_student_skill($id)
   return $result;
 }
 
+function del_worker_skill($id)
+{
+   $result = null;
+   $sql = "DELETE FROM `work_skills` WHERE `id` = {$id} ";
+   $query = mysqli_query($_SESSION['link'],$sql);
+
+   
+   if($query)
+   {
+      if(mysqli_affected_rows($_SESSION['link'])==1)
+      {
+         $result = true;
+      }
+   }
+   else
+  {
+    echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+  }
+  return $result;
+}
+
+
 function add_student_skill($skill_name)
 {
 
@@ -211,6 +275,32 @@ function add_student_skill($skill_name)
    $create_time = date("Y-m-d H:i:s");
 
   $sql = "INSERT INTO `student_skills` (`skill_name`, `create_time`) VALUE ('{$skill_name}', '{$create_time}');";
+
+  $query = mysqli_query($_SESSION['link'], $sql);
+
+  if ($query)
+  {
+    if(mysqli_affected_rows($_SESSION['link']) == 1)
+    {
+
+      $result = true;
+    }
+  }
+  else
+  {
+    echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+  }
+
+  return $result;
+}
+
+function add_worker_skill($skill_name)
+{
+
+   $result = null;
+   $create_time = date("Y-m-d H:i:s");
+
+  $sql = "INSERT INTO `work_skills` (`skill_name`, `create_time`) VALUE ('{$skill_name}', '{$create_time}');";
 
   $query = mysqli_query($_SESSION['link'], $sql);
 

@@ -101,11 +101,13 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
         <hr>
         <p class="text">
           <?php echo ($work['content']) ?>
+          <button id='workerCon' class="btn waves-effect waves-light blue-grey lighten-4 black-text btnEdit">編輯</button>
           <br>
         </p>
         <?php foreach ($work_skills as $WorkSkill) : ?>
         <a class="waves-effect waves-light btn"> <?php echo ($WorkSkill['skill_name']) ?> </a>
         <?php endforeach ?>
+        <button id='workerSkill' class="btn waves-effect waves-light blue-grey lighten-4 black-text btnEdit">編輯</button>
       </div>
   </main>
 
@@ -124,6 +126,14 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
 
       $('#studentCon').on('click',function(){
         window.location.href = "studentCon.php"
+      })
+
+      $('#workerSkill').on('click',function(){
+        window.location.href = "workerSkill.php"
+      })
+
+      $('#workerCon').on('click',function(){
+        window.location.href = "workerCon.php"
       })
     });
   </script>

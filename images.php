@@ -1,7 +1,7 @@
 <?php
 require_once "php/db.php";
 require_once "php/function.php";
-$images=get_images();
+$images=get_publish_images();
 // print_r($images);
 ?>
 

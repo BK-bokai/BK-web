@@ -73,3 +73,40 @@ div.login{
 .edit{
     padding: 6px;
 }
+
+button{
+    margin-top: 1vh;
+}
+a{
+    margin-top: 1vh;
+}
+
+.img_box{
+    border: 2px rgba(0, 0, 0, 1) solid;
+    /* padding: 10vh; */
+}
+
+.img_box.col.s12.m3 {
+    padding: 1.5vh;
+    margin: -1px;
+}
+
+[type="radio"]:checked + span:after,
+[type="radio"].with-gap:checked + span:before,
+[type="radio"].with-gap:checked + span:after {
+  border: 2px solid rgba(0, 0, 0, 0.8);
+}
+
+[type="radio"]:checked + span:after,
+[type="radio"].with-gap:checked + span:after {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+div#addimg{
+    padding-bottom: 1.5vh;
+}
+
+i.fas.fa-images {
+    padding-right: 1vh;
+}
+

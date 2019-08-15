@@ -1,9 +1,20 @@
 <?php
-require_once "php/db.php";
-require_once "php/function.php";
+$_POST['disable'] = "";
+@session_start();
+require_once "../php/db.php";
+require_once "../php/function.php";
+$data = get_index_photo();
+$student = get_student();
+$student_skills = get_student_skills();
+$work = get_work();
+$work_skills = get_work_skills();
+?>
+<?php
 
-if ($_SESSION['login']) {
-  header("Location:qwewqa=admin/index.php");
+
+if (!isset($_SESSION['login']) || !$_SESSION['login']) {
+  //直接轉跳到 login.php
+  header("Location: ../login.php?msg=請正確登入");
 }
 ?>
 
@@ -15,7 +26,7 @@ if ($_SESSION['login']) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>BK</title>
+  <title>BK-Admin</title>
 
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -37,7 +48,7 @@ if ($_SESSION['login']) {
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
   <!--css樣式-->
-  <link rel="stylesheet" href="css/style.css" charset="utf-8">
+  <link rel="stylesheet" href="../css/style.css" charset="utf-8">
 
   <link rel="Shortcut Icon" type="image/x-icon" href="img/PBLAP_logo_small_c.png">
 
@@ -52,42 +63,22 @@ if ($_SESSION['login']) {
 
 
   <main>
-    <div class="row container login">
-      <form class="col s12 loginform">
-
+    <div class="row container">
+      <form id="worker" class="col s12">
+        <input type="hidden" id="id" value="<?php echo $work['id']; ?>">
         <div class="row">
+          <h3>內文</h3>
           <div class="input-field col s12">
-            <input id="username" type="text" class="validate un">
-            <label for="username"><span class="member">帳號</span></label>
+            <textarea id="Content" class="materialize-textarea" cols="30" rows="20"><?php echo ($work['content']); ?></textarea>
           </div>
+          <button class="btn waves-effect waves-light right" type="submit" name="action">存檔
+            <i class="fas fa-save"></i>
+          </button>
         </div>
-
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="password" type="password" class="validate pw">
-            <label for="password"><span class="member">密碼</span></label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col s6">
-            <button class="btn waves-effect waves-light test" type="submit">登入
-              <i class="material-icons right">send</i>
-            </button>
-            
-          </div>
-
-          <?php if (isset($_GET['msg'])) : ?>
-            <div class="col s6">
-              <p class="error"><?php echo $_GET['msg'] ?></p>
-            </div>
-          <?php endif ?>
-
-        </div>
-
 
       </form>
     </div>
+
   </main>
 
 
@@ -97,42 +88,52 @@ if ($_SESSION['login']) {
 
   <script>
     $(document).ready(function() {
+      //============================================================
       $('.sidenav').sidenav();
-      $('.carousel').carousel();
-      M.updateTextFields();
 
+      $("form#worker").on('submit', function() {
+        alert($("#id").val());
+        alert($("#Content").val());
 
-
-      //       以下開始是登入動作
-      $('form.loginform').on('submit', function() {
-        alert("submit");
 
         $.ajax({
           type: "POST",
-          url: "php/check.php",
+          url: "../php/updateworker.php",
           data: {
-            un: $(".un").val(),
-            pw: $(".pw").val()
+            id: $("#id").val(),
+            content: $("#Content").val(),
           },
           dataType: 'html'
         }).done(function(data) {
-          console.log(data)
-          if (data == 'yes') {
-            alert('登入成功');
-            window.location.href = 'qwewqa=admin/index.php';
+
+          //成功的時候
+          if (data == "yes") {
+            //註冊新增成功，轉跳到登入頁面。
+            alert("更新成功");
+            window.location.href = "index.php";
+            return false;
           } else {
-            alert('登入失敗，請確認帳號密碼');
+            alert("更新錯誤");
+            console.log(data);
+            return false;
           }
+
         }).fail(function(jqXHR, textStatus, errorThrown) {
+          //失敗的時候
           alert("有錯誤產生，請看 console log");
           console.log(jqXHR.responseText);
-        })
+        });
+
 
         return false;
+      })
 
-      });
 
-    })
+
+
+
+      //============================================================
+    });
   </script>
 
 
