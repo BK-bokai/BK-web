@@ -3,11 +3,6 @@ $_POST['disable'] = "";
 @session_start();
 require_once "../php/db.php";
 require_once "../php/function.php";
-$data = get_index_photo();
-$student = get_student();
-$student_skills = get_student_skills();
-$work = get_work();
-$work_skills = get_work_skills();
 ?>
 <?php
 
@@ -64,12 +59,12 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
 
   <main>
     <div class="row container">
-      <form id="indexPhoto" class="col s12">
-        <input type="hidden" id="id" value="<?php echo $data['id']; ?>">
+      <form id="addimg" class="col s12">
+
         <div class="file-field input-field">
           <div class="btnEdit btn blue-grey lighten-5">
             <span class="black-text">照片</span>
-            <input type="file" name="image_path" accept="image/gif, image/jpeg, image/png">
+            <input type="file" name="image_path" accept="image/gif, image/jpeg, image/png" required>
           </div>
           <div class="file-path-wrapper">
             <input class="file-path validate" type="text">
@@ -81,7 +76,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
         <div class="row">
           <div class="col s6">
             <div class="col s12">
-              <p>上傳照片</p>
+              <!-- <p>上傳照片</p> -->
             </div>
             <div class="col s12 newimg"></div>
             <button class="btn waves-effect waves-light red lighten-1 delete">
@@ -91,11 +86,11 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
         </div>
         <div class="col s12">
           <label>
-            <input class="with-gap" name="publish" type="radio" checked />
+            <input class="with-gap" name="publish" type="radio" value="1" checked />
             <span>發佈</span>
           </label>
           <label>
-            <input class="with-gap" name="publish" type="radio" />
+            <input class="with-gap" name="publish" type="radio" value="0" />
             <span>不發佈</span>
           </label>
         </div>
@@ -142,13 +137,21 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
         }).done(function(data) {
           console.log(data);
           //     //上傳成功
-          if (data == "yes") {
+          if (data == "yes") 
+          {
             //       //將檔案插入
             $("div.newimg").html("<img class='responsive-img showImg' src='../" + save_path + file_name + "'>");
             //       //給予 #image_path 值，等等存檔時會用
             $("#imgpath").val(save_path + file_name);
             return false;
-          } else {
+          }
+          else if (data =="檔名重複")
+          {
+            alert("檔名重複，請更換檔名")
+            location.reload() ;
+          }  
+          else 
+          {
             //       //警告回傳的訊息
             alert(data);
           }
@@ -181,7 +184,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
                 $("div.nwimg").html("");
               }, 500);
               $(".file-path").val("")
-
+              location.reload()
 
             }).fail(function(data) {
               //失敗的時候
@@ -198,22 +201,19 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
       })
 
 
-      $("form#indexPhoto").on('submit', function() {
-        // alert($("#imgpath").val());
-        // alert($("#imgTitle").val());
-        // alert($("#photoContent1").val());
-        // alert($("#photoContent2").val());
+      $("form#addimg").on('submit', function() {
+        alert($("#imgpath").val());
+        alert($("input[name='publish']:checked").val())
+
 
 
         $.ajax({
           type: "POST",
-          url: "../php/updatephoto_index.php",
+          url: "../php/addimg.php",
           data: {
-            id: $("#id").val(),
-            username: $("#imgTitle").val(),
-            photo_path: $("#imgpath").val(),
-            content_one: $("#photoContent1").val(),
-            content_two: $("#photoContent2").val(),
+            imgpath: $("#imgpath").val() ,
+            publish: $("input[name='publish']:checked").val()
+
           },
           dataType: 'html'
         }).done(function(data) {
@@ -221,11 +221,11 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
           //成功的時候
           if (data == "yes") {
             //註冊新增成功，轉跳到登入頁面。
-            alert("更新成功");
-            window.location.href = "index.php";
+            alert("新增成功");
+            window.location.href = "images.php";
             return false;
           } else {
-            alert("更新錯誤");
+            alert("新增失敗");
             console.log(data);
             return false;
           }

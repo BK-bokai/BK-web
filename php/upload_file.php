@@ -5,27 +5,22 @@
 // echo $_FILES['file']['tmp_name'];   //上傳後暫存在 server 的中的位置及檔名
 // echo $_FILES['file']['error'];      //錯誤碼0,為上傳正常 4為沒選擇檔案
 // echo $_FILES['file']['size'];		//檔案大小，以 byte 為單位
-if(file_exists($_FILES['file']['tmp_name']))
-{
+
+if (file_exists($_FILES['file']['tmp_name'])) {
    $img_folder = $_POST['save_path'];
    $file_name   = $_FILES['file']['name'];
-  
-   if(move_uploaded_file($_FILES['file']['tmp_name'], "../" . $img_folder .$file_name))
-   {
-      echo "yes";
-   }
-   else 
-   {
-      echo "檔案搬移失敗，請確認{$_POST['save_path']}資料夾可寫入";
+   if (is_file("../" . $img_folder . $file_name))
+      echo "檔名重複";
+      // echo "testtest";
+   else {
+      if (move_uploaded_file($_FILES['file']['tmp_name'], "../" . $img_folder . $file_name)) {
+         echo "yes";
+      } else {
+         echo "檔案搬移失敗，請確認{$_POST['save_path']}資料夾可寫入";
+      }
    }
 
    $_POST['img_path'] = $img_folder . $file_name;
-}
-else 
-{
+} else {
    echo "暫存檔不存在，上傳失敗";
 }
-
-
-
-?>

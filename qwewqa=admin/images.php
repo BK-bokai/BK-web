@@ -64,7 +64,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
       </div>
       <?php foreach ($images as $img) : ?>
       <div class="img_box col s12 m3">
-        <form data-id="<?php echo $workSkill['id'] ?>">
+        <form data-id="<?php echo $img['id'] ?>">
           <div class="col s12">
             <img class="responsive-img" src="<?php echo ('../' . $img['image_path']) ?>">
           </div>
@@ -79,7 +79,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
             </label>
           </div>
           <div class="col s12 center">
-            <button class="btn waves-effect waves-light red" type="submit" name="action">刪除
+            <button class="btn waves-effect waves-light red del_img" type="submit" name="action">刪除
               <i class="fas fa-trash-alt"></i>
             </button>
           </div>
@@ -101,20 +101,43 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
     $(document).ready(function() {
       $('.sidenav').sidenav();
 
-      $('#studentSkill').on('click', function() {
-        window.location.href = "studentSkill.php"
-      })
+      $('form').on('submit',function(){
+        alert($(this).attr('data-id'));
+        var this_tr = $(this).parent();
+        var c=confirm('你確定要刪除此照片嗎')
 
-      $('#studentCon').on('click', function() {
-        window.location.href = "studentCon.php"
-      })
+        if (c) {
+          $.ajax({
+            type: "POST",
+            url: "../php/del_img.php",
+            data: {
+              id: $(this).attr('data-id'),
+            },
+            dataType: 'html'
+          }).done(function(data) {
 
-      $('#workerSkill').on('click', function() {
-        window.location.href = "workerSkill.php"
-      })
+            //成功的時候
+            if (data == "yes") 
+            {
+              alert("刪除成功");
+              $(this_tr).fadeOut();
+              // alert($(this).parent().parent())
+              return false;
+            }
+            else 
+            {
+              alert("刪除錯誤");
+              console.log(data);
+              return false;
+            }
 
-      $('#workerCon').on('click', function() {
-        window.location.href = "workerCon.php"
+          }).fail(function(jqXHR, textStatus, errorThrown) {
+            //失敗的時候
+            alert("有錯誤產生，請看 console log");
+            console.log(jqXHR.responseText);
+          });
+        }
+        return false;
       })
     });
   </script>

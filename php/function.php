@@ -9,7 +9,7 @@ function get_index_photo()
 
    if ($query) {
       if (mysqli_num_rows($query) == 1) {
-            $data = mysqli_fetch_assoc($query);
+         $data = mysqli_fetch_assoc($query);
       }
    } else {
       echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
@@ -25,7 +25,7 @@ function get_student()
 
    if ($query) {
       if (mysqli_num_rows($query) == 1) {
-            $data = mysqli_fetch_assoc($query);
+         $data = mysqli_fetch_assoc($query);
       }
    } else {
       echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
@@ -59,7 +59,7 @@ function get_work()
 
    if ($query) {
       if (mysqli_num_rows($query) == 1) {
-            $data = mysqli_fetch_assoc($query);
+         $data = mysqli_fetch_assoc($query);
       }
    } else {
       echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
@@ -141,15 +141,13 @@ function check_user($un, $pw)
 function update_index_photo($id, $username, $photo_path, $content_one, $content_two)
 {
    $result = null;
-   $photo_sql='';
-   if($photo_path != '')
-   {
-      if(is_file("../".get_index_photo()['photo_path']))
-      {
-         unlink("../".get_index_photo()['photo_path']);
+   $photo_sql = '';
+   if ($photo_path != '') {
+      if (is_file("../" . get_index_photo()['photo_path'])) {
+         unlink("../" . get_index_photo()['photo_path']);
       }
-      
-      $photo_sql="`photo_path` = '{$photo_path}',";
+
+      $photo_sql = "`photo_path` = '{$photo_path}',";
    }
 
    $sql    = "UPDATE `index_photo` SET
@@ -159,20 +157,16 @@ function update_index_photo($id, $username, $photo_path, $content_one, $content_
                `content_two` = '{$content_two}'
                WHERE `id` = {$id};";
 
-   $query = mysqli_query($_SESSION['link'],$sql);
+   $query = mysqli_query($_SESSION['link'], $sql);
 
-   if($query)
-   {
-      if(mysqli_affected_rows($_SESSION['link']) == 1)
-      {
+   if ($query) {
+      if (mysqli_affected_rows($_SESSION['link']) == 1) {
          $result = true;
       }
-   }
-   else 
-   {
+   } else {
       echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
    }
-return $result;
+   return $result;
 }
 
 function update_student($id, $content)
@@ -184,20 +178,16 @@ function update_student($id, $content)
                `content` = '{$content}'
                WHERE `id` = {$id};";
 
-   $query = mysqli_query($_SESSION['link'],$sql);
+   $query = mysqli_query($_SESSION['link'], $sql);
 
-   if($query)
-   {
-      if(mysqli_affected_rows($_SESSION['link']) == 1)
-      {
+   if ($query) {
+      if (mysqli_affected_rows($_SESSION['link']) == 1) {
          $result = true;
       }
-   }
-   else 
-   {
+   } else {
       echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
    }
-return $result;
+   return $result;
 }
 
 function update_worker($id, $content)
@@ -209,62 +199,50 @@ function update_worker($id, $content)
                `content` = '{$content}'
                WHERE `id` = {$id};";
 
-   $query = mysqli_query($_SESSION['link'],$sql);
+   $query = mysqli_query($_SESSION['link'], $sql);
 
-   if($query)
-   {
-      if(mysqli_affected_rows($_SESSION['link']) == 1)
-      {
+   if ($query) {
+      if (mysqli_affected_rows($_SESSION['link']) == 1) {
          $result = true;
       }
-   }
-   else 
-   {
+   } else {
       echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
    }
-return $result;
+   return $result;
 }
 
 function del_student_skill($id)
 {
    $result = null;
    $sql = "DELETE FROM `student_skills` WHERE `id` = {$id} ";
-   $query = mysqli_query($_SESSION['link'],$sql);
+   $query = mysqli_query($_SESSION['link'], $sql);
 
-   
-   if($query)
-   {
-      if(mysqli_affected_rows($_SESSION['link'])==1)
-      {
+
+   if ($query) {
+      if (mysqli_affected_rows($_SESSION['link']) == 1) {
          $result = true;
       }
+   } else {
+      echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
    }
-   else
-  {
-    echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
-  }
-  return $result;
+   return $result;
 }
 
 function del_worker_skill($id)
 {
    $result = null;
    $sql = "DELETE FROM `work_skills` WHERE `id` = {$id} ";
-   $query = mysqli_query($_SESSION['link'],$sql);
+   $query = mysqli_query($_SESSION['link'], $sql);
 
-   
-   if($query)
-   {
-      if(mysqli_affected_rows($_SESSION['link'])==1)
-      {
+
+   if ($query) {
+      if (mysqli_affected_rows($_SESSION['link']) == 1) {
          $result = true;
       }
+   } else {
+      echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
    }
-   else
-  {
-    echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
-  }
-  return $result;
+   return $result;
 }
 
 
@@ -274,24 +252,20 @@ function add_student_skill($skill_name)
    $result = null;
    $create_time = date("Y-m-d H:i:s");
 
-  $sql = "INSERT INTO `student_skills` (`skill_name`, `create_time`) VALUE ('{$skill_name}', '{$create_time}');";
+   $sql = "INSERT INTO `student_skills` (`skill_name`, `create_time`) VALUE ('{$skill_name}', '{$create_time}');";
 
-  $query = mysqli_query($_SESSION['link'], $sql);
+   $query = mysqli_query($_SESSION['link'], $sql);
 
-  if ($query)
-  {
-    if(mysqli_affected_rows($_SESSION['link']) == 1)
-    {
+   if ($query) {
+      if (mysqli_affected_rows($_SESSION['link']) == 1) {
 
-      $result = true;
-    }
-  }
-  else
-  {
-    echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
-  }
+         $result = true;
+      }
+   } else {
+      echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+   }
 
-  return $result;
+   return $result;
 }
 
 function add_worker_skill($skill_name)
@@ -300,22 +274,84 @@ function add_worker_skill($skill_name)
    $result = null;
    $create_time = date("Y-m-d H:i:s");
 
-  $sql = "INSERT INTO `work_skills` (`skill_name`, `create_time`) VALUE ('{$skill_name}', '{$create_time}');";
+   $sql = "INSERT INTO `work_skills` (`skill_name`, `create_time`) VALUE ('{$skill_name}', '{$create_time}');";
 
-  $query = mysqli_query($_SESSION['link'], $sql);
+   $query = mysqli_query($_SESSION['link'], $sql);
 
-  if ($query)
-  {
-    if(mysqli_affected_rows($_SESSION['link']) == 1)
-    {
+   if ($query) {
+      if (mysqli_affected_rows($_SESSION['link']) == 1) {
 
-      $result = true;
-    }
-  }
-  else
-  {
-    echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
-  }
+         $result = true;
+      }
+   } else {
+      echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+   }
 
-  return $result;
+   return $result;
+}
+
+function add_img($imgpath, $publish)
+{
+
+   $result = null;
+   $create_time = date("Y-m-d H:i:s");
+
+   $sql = "INSERT INTO `images` (`image_path`, `publish`, `create_time`) VALUE ('{$imgpath}', {$publish}, '{$create_time}');";
+
+   $query = mysqli_query($_SESSION['link'], $sql);
+
+   if ($query) {
+      if (mysqli_affected_rows($_SESSION['link']) == 1) {
+
+         $result = true;
+      }
+   } else {
+      echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+   }
+
+   return $result;
+}
+
+function del_img($id)
+{
+   $img = get_img($id);
+   if (is_file('../' . $img['image_path'])) 
+   { 
+      unlink('../' . $img['image_path']);
+   }
+   else
+   {
+      echo "檔案不存在";
+   }
+
+
+   $result = null;
+   $sql = "DELETE FROM `images` WHERE `id` = {$id} ";
+   $query = mysqli_query($_SESSION['link'], $sql);
+
+
+   if ($query) {
+      if (mysqli_affected_rows($_SESSION['link']) == 1) {
+         $result = true;
+      }
+   } else {
+      echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+   }
+   return $result;
+}
+
+function get_img($id)
+{
+   $data = array();
+   $sql = "SELECT * FROM `images` WHERE `id` = {$id} ";
+   $query = mysqli_query($_SESSION['link'], $sql);
+
+   if ($query) {
+      if (mysqli_num_rows($query) == 1) {
+         $data = mysqli_fetch_assoc($query);
+      }
+   } else {
+      echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+   }
+   return $data;
 }
