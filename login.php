@@ -1,10 +1,17 @@
 <?php
+// session_start();
+// $_SESSION['login']=false;
 require_once "php/db.php";
 require_once "php/function.php";
-
-if ($_SESSION['login']) {
-  header("Location:qwewqa=admin/index.php");
+// isset($_SESSION['is_login']) &&
+if (isset($_SESSION['login']) && $_SESSION['login']) {
+  header("Location: qwewqa=admin/index.php");
 }
+
+
+
+
+
 ?>
 
 
@@ -74,13 +81,13 @@ if ($_SESSION['login']) {
             <button class="btn waves-effect waves-light test" type="submit">登入
               <i class="material-icons right">send</i>
             </button>
-            
+
           </div>
 
           <?php if (isset($_GET['msg'])) : ?>
-            <div class="col s6">
-              <p class="error"><?php echo $_GET['msg'] ?></p>
-            </div>
+          <div class="col s6">
+            <p class="error"><?php echo $_GET['msg'] ?></p>
+          </div>
           <?php endif ?>
 
         </div>
