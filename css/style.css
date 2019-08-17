@@ -110,3 +110,13 @@ i.fas.fa-images {
     padding-right: 1vh;
 }
 
+.img_box a.publish-btn{
+    width: 20px;
+    height: 20px;
+    margin-top: 0px;
+    margin-left: 13.5px;
+}
+
+.img_box a.publish-btn i{
+    line-height: 20px;
+}

@@ -355,3 +355,24 @@ function get_img($id)
    }
    return $data;
 }
+
+function update_image($id, $publish)
+{
+   $result = null;
+
+
+   $sql    = "UPDATE `images` SET
+               `publish` = '{$publish}'
+               WHERE `id` = {$id};";
+
+   $query = mysqli_query($_SESSION['link'], $sql);
+
+   if ($query) {
+      if (mysqli_affected_rows($_SESSION['link']) == 1) {
+         $result = true;
+      }
+   } else {
+      echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+   }
+   return $result;
+}

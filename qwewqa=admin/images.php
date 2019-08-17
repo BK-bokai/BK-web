@@ -68,18 +68,19 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
           <div class="col s12">
             <img class="responsive-img" src="<?php echo ('../' . $img['image_path']) ?>">
           </div>
+
           <div class="col s12">
             <label>
-              <input class="with-gap" name="publish" type="radio" <?php echo ($img['publish'] == 1) ? "checked" : "" ?> />
+              <input data-id="<?php echo $img['id'] ?>" class="with-gap" name="<?php echo $img['id'] ?>" type="radio" value="1" <?php echo ($img['publish'] == 1) ? "checked" : "" ?> />
               <span>發佈</span>
             </label>
             <label>
-              <input class="with-gap" name="publish" type="radio" <?php echo ($img['publish'] == 0) ? "checked" : "" ?> />
+              <input data-id="<?php echo $img['id'] ?>" class="with-gap" name="<?php echo $img['id'] ?>" type="radio" value="0" <?php echo ($img['publish'] == 0) ? "checked" : "" ?> />
               <span>不發佈</span>
             </label>
           </div>
           <div class="col s12 center">
-            <button class="btn waves-effect waves-light red del_img" type="submit" name="action">刪除
+            <button class="btn waves-effect waves-light red del_img " type="submit" name="action">刪除
               <i class="fas fa-trash-alt"></i>
             </button>
           </div>
@@ -101,10 +102,10 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
     $(document).ready(function() {
       $('.sidenav').sidenav();
 
-      $('form').on('submit',function(){
+      $('form').on('submit', function() {
         alert($(this).attr('data-id'));
         var this_tr = $(this).parent();
-        var c=confirm('你確定要刪除此照片嗎')
+        var c = confirm('你確定要刪除此照片嗎')
 
         if (c) {
           $.ajax({
@@ -117,15 +118,12 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
           }).done(function(data) {
 
             //成功的時候
-            if (data == "yes") 
-            {
+            if (data == "yes") {
               alert("刪除成功");
               $(this_tr).fadeOut();
               // alert($(this).parent().parent())
               return false;
-            }
-            else 
-            {
+            } else {
               alert("刪除錯誤");
               console.log(data);
               return false;
@@ -139,6 +137,56 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
         }
         return false;
       })
+
+      // $(".img_box a.publish-btn").on('click',function(){
+      //   // alert($(this).attr('data-id'));
+      //   alert($("input[name="+$(this).attr('data-id')+"]:checked").val())
+      //   // var obj=document.getElementsByName($(this).attr('data-id'))
+      //   var obj2=$("input[name="+$(this).attr('data-id')+"]:checked")
+
+      //   var papa=$(this).parent().parent()
+
+      //   var c=confirm("確定要更改此設定嗎?");
+      // })
+
+      $($("input[type=radio]")).on('change', function() {
+        alert($(this).attr('data-id'));
+        alert($("input[data-id=" + $(this).attr('data-id') + "]:checked").val())
+        var c = confirm("你確定要更改此設定嗎");
+        if (c) {
+          $.ajax({
+            type: "POST",
+            url: "../php/ChangePublish.php",
+            data: {
+              id: $(this).attr('data-id'),
+              publish: $("input[data-id=" + $(this).attr('data-id') + "]:checked").val()
+            },
+            dataType: 'html'
+          }).done(function(data) {
+
+            //成功的時候
+            if (data == "yes") {
+              alert("更改成功");
+              return false;
+            } else {
+              alert("更改錯誤，請看log");
+              console.log(data);
+              return false;
+            }
+
+          }).fail(function(jqXHR, textStatus, errorThrown) {
+            //失敗的時候
+            alert("有錯誤產生，請看 console log");
+            console.log(jqXHR.responseText);
+          });
+        } else {
+          alert("取消更改")
+          location.reload();
+          // location=location;
+          // location.assign(location);
+        }
+      })
+
     });
   </script>
 
