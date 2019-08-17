@@ -168,7 +168,14 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
             //       //給予 #image_path 值，等等存檔時會用
             $("#imgpath").val(save_path + file_name);
             return false;
-          } else {
+          }
+          else if (data =="檔名重複")
+          {
+            alert("檔名重複，請更換檔名")
+            location.reload() ;
+          }   
+          else 
+          {
             //       //警告回傳的訊息
             alert(data);
           }
@@ -200,7 +207,8 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
               setTimeout(function() {
                 $("div.nwimg").html("");
               }, 500);
-              $(".file-path").val("")
+              $(".file-path").val("");
+              location.reload() ;
 
 
             }).fail(function(data) {
@@ -213,6 +221,11 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
             alert("無檔案可以刪除");
             return false;
           }
+        }
+        else
+        {
+          alert("已取消")
+          return false;
         }
 
       })
@@ -244,7 +257,14 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
             alert("更新成功");
             window.location.href = "index.php";
             return false;
-          } else {
+          } 
+          else if(data == "無更新")
+          {
+            alert("無更新");
+            window.location.href = "index.php";
+          }
+          else 
+          {
             alert("更新錯誤");
             console.log(data);
             return false;

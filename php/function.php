@@ -142,29 +142,79 @@ function update_index_photo($id, $username, $photo_path, $content_one, $content_
 {
    $result = null;
    $photo_sql = '';
+   $updatecon1 = '';
+   $updatecon2 = '';
+   $sqlname = '';
+
    if ($photo_path != '') {
       if (is_file("../" . get_index_photo()['photo_path'])) {
          unlink("../" . get_index_photo()['photo_path']);
       }
 
-      $photo_sql = "`photo_path` = '{$photo_path}',";
+      $photo_sql = "`photo_path` = '{$photo_path}'";
+   }
+   $data = get_index_photo();
+
+   if ($data['content_one'] != $content_one) {
+      $updatecon1 = "`content_one` = '{$content_one}'";
+   } else {
+      $updatecon1 = '';
    }
 
-   $sql    = "UPDATE `index_photo` SET
-               `username` = '{$username}',
-               $photo_sql
-               `content_one` = '{$content_one}',
-               `content_two` = '{$content_two}'
-               WHERE `id` = {$id};";
-
-   $query = mysqli_query($_SESSION['link'], $sql);
-
-   if ($query) {
-      if (mysqli_affected_rows($_SESSION['link']) == 1) {
-         $result = true;
-      }
+   if ($data['content_two'] != $content_two) {
+      $updatecon2 = "`content_two` = '{$content_two}'";
    } else {
-      echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+      $updatecon2 = '';
+   }
+
+   if ($data['username'] != $username) {
+      $sqlname = "`username` = '{$username}'";
+   } else {
+      $sqlname = '';
+   }
+
+   if ($photo_sql || $updatecon1 || $updatecon2 || $sqlname ) {
+      
+
+      // $sql    = "UPDATE `index_photo` SET".''.
+      //          $sqlname.($photo_sql)? ",":'' . ''.
+      //          $photo_sql.($updatecon1)? ",":'' . ''.
+      //          $updatecon1.($updatecon2)? ",":'' . ''.
+      //          $updatecon2.''.
+      //          "WHERE `id` = {$id};";
+
+      $a='';
+      $b='';
+      $c='';
+      
+      if($sqlname) $a= ( $photo_sql || $updatecon1 || $updatecon2 ) ? ",":'' ;
+      if($photo_sql) $b= ($updatecon1 || $updatecon2 ) ? ",":'' ;
+      if($updatecon1) $c= ($updatecon2 ) ? ",":'' ;
+
+      $sql    = "UPDATE `index_photo` SET".
+               $sqlname. $a.
+               $photo_sql. $b.
+               $updatecon1. $c.
+               $updatecon2.
+               "WHERE `id` = {$id};";
+   } else {
+      $sql = '';
+   }
+
+   if ($sql) {
+      $query = mysqli_query($_SESSION['link'], $sql);
+
+      if ($query) {
+         if (mysqli_affected_rows($_SESSION['link']) == 1) {
+            $result = "更新成功";
+         }
+      } else {
+         echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+      }
+   }
+   else
+   {
+      $result = "無更新";
    }
    return $result;
 }
@@ -315,12 +365,9 @@ function add_img($imgpath, $publish)
 function del_img($id)
 {
    $img = get_img($id);
-   if (is_file('../' . $img['image_path'])) 
-   { 
+   if (is_file('../' . $img['image_path'])) {
       unlink('../' . $img['image_path']);
-   }
-   else
-   {
+   } else {
       echo "檔案不存在";
    }
 
