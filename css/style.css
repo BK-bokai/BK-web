@@ -3,6 +3,10 @@ body {
     font-family: 'cwTeXYen', sans-serif;
 }
 
+html, body {
+    height: 100%;
+  }
+
 body {
     display: flex;
     min-height: 100vh;
@@ -20,10 +24,15 @@ nav.nav-extended.menu {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-.menu ul li a {
+/* .menu ul li a {
     font-size: 20px;
-}
+} */
 
+
+
+.menu ul li{
+    line-height: 58px;
+}
 .text {
     /* width: 400px;
     font-size: 15px; */
@@ -120,3 +129,6 @@ i.fas.fa-images {
 .img_box a.publish-btn i{
     line-height: 20px;
 }
+
+
+
