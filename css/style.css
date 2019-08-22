@@ -5,7 +5,7 @@ body {
 
 html, body {
     height: 100%;
-  }
+}
 
 body {
     display: flex;
@@ -13,11 +13,10 @@ body {
     flex-direction: column;
 }
 
-
 main {
     background-color: antiquewhite;
     flex: 1 0 auto;
-    font-weight:bold;
+    font-weight: bold;
 }
 
 nav.nav-extended.menu {
@@ -28,11 +27,10 @@ nav.nav-extended.menu {
     font-size: 20px;
 } */
 
-
-
-.menu ul li{
+.menu ul li {
     line-height: 58px;
 }
+
 .text {
     /* width: 400px;
     font-size: 15px; */
@@ -40,8 +38,7 @@ nav.nav-extended.menu {
     text-align: justify;
 }
 
-
-.work_list{
+.work_list {
     margin-top: 6%;
 }
 
@@ -57,40 +54,40 @@ span.member {
     font-size: 21px;
 }
 
-div.login{
+div.login {
     margin-top: 10%;
     padding-right: 15%;
     padding-left: 15%;
 }
 
-
-.error{
+.error {
     color: red;
     font-size: 21px;
     margin: 0;
 }
 
-.btnEdit{
+.btnEdit {
     font-size: 21px;
 }
 
-.showImg{
+.showImg {
     height: 50%;
     width: 50%;
 }
 
-.edit{
+.edit {
     padding: 6px;
 }
 
-button{
-    margin-top: 1vh;
-}
-a{
+button {
     margin-top: 1vh;
 }
 
-.img_box{
+a {
+    margin-top: 1vh;
+}
+
+.img_box {
     border: 2px rgba(0, 0, 0, 1) solid;
     /* padding: 10vh; */
 }
@@ -100,18 +97,83 @@ a{
     margin: -1px;
 }
 
-[type="radio"]:checked + span:after,
-[type="radio"].with-gap:checked + span:before,
-[type="radio"].with-gap:checked + span:after {
-  border: 2px solid rgba(0, 0, 0, 0.8);
+/* raido的顏色 */
+
+/* [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:before, [type="radio"].with-gap:checked+span:after {
+    border: 2px solid rgba(0, 0, 0, 0.8);
 }
 
-[type="radio"]:checked + span:after,
-[type="radio"].with-gap:checked + span:after {
-  background-color: rgba(0, 0, 0, 0.8);
+[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after {
+    background-color: rgba(0, 0, 0, 0.8);
+} */
+
+/* input的focus顏色跟底線 */
+
+/* label focus color */
+
+.input-field input[type=text]:focus+label, .materialize-textarea:focus:not([readonly])+label {
+    color: rgba(0, 0, 0, 0.8) !important;
 }
 
-div#addimg{
+/* label underline focus color */
+
+.input-field input[type=text]:focus, .materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.8) !important;
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.8) !important;
+}
+
+.errorun input[type=text]:focus+label, .materialize-textarea:focus:not([readonly])+label {
+    color: rgba(255, 0, 0, 0.8) !important;
+}
+
+/* label underline focus color */
+
+.errorun input[type=text]:focus, .materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid rgba(255, 0, 0, 0.8) !important;
+    box-shadow: 0 1px 0 0 rgba(255, 0, 0, 0.8) !important;
+}
+.errorun input[type=text], .materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid rgba(255, 0, 0, 0.8) !important;
+    box-shadow: 0 1px 0 0 rgba(255, 0, 0, 0.8) !important;
+}
+
+.errorun label, .materialize-textarea:focus:not([readonly])+label {
+    color: rgba(255, 0, 0, 0.8) !important;
+}
+
+.errorunpas input[type=password]:focus+label, .materialize-textarea:focus:not([readonly])+label {
+    color: rgba(255, 0, 0, 0.8) !important;
+}
+
+/* label underline focus color */
+
+.errorunpas input[type=password]:focus, .materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid rgba(255, 0, 0, 0.8) !important;
+    box-shadow: 0 1px 0 0 rgba(255, 0, 0, 0.8) !important;
+}
+.errorunpas input[type=password], .materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid rgba(255, 0, 0, 0.8) !important;
+    box-shadow: 0 1px 0 0 rgba(255, 0, 0, 0.8) !important;
+}
+
+.errorunpas label, .materialize-textarea:focus:not([readonly])+label {
+    color: rgba(255, 0, 0, 0.8) !important;
+}
+
+.input-field input[type=password]:focus+label, .materialize-textarea:focus:not([readonly])+label {
+    color: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* label underline focus color */
+
+.input-field input[type=password]:focus, .materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.8) !important;
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.8) !important;
+}
+
+
+
+div#addimg {
     padding-bottom: 1.5vh;
 }
 
@@ -119,16 +181,18 @@ i.fas.fa-images {
     padding-right: 1vh;
 }
 
-.img_box a.publish-btn{
+.img_box a.publish-btn {
     width: 20px;
     height: 20px;
     margin-top: 0px;
     margin-left: 13.5px;
 }
 
-.img_box a.publish-btn i{
+.img_box a.publish-btn i {
     line-height: 20px;
 }
 
-
-
+.memberList {
+    margin-top: 7vh;
+    /* top:50%; */
+}

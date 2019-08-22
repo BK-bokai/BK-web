@@ -2,11 +2,8 @@
 @session_start();
 require_once "../php/db.php";
 require_once "../php/function.php";
-$data = get_index_photo();
-$student = get_student();
-$student_skills = get_student_skills();
-$work = get_work();
-$work_skills = get_work_skills();
+
+$members = get_members();
 ?>
 <?php
 
@@ -63,33 +60,30 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
 
   <main>
     <div class="row container">
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Item Name</th>
-            <th>Item Price</th>
-          </tr>
-        </thead>
+      <div class="col s12 memberList">
+        <table class="highlight centered">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>名字</th>
+              <th>帳號</th>
+            </tr>
+          </thead>
+          <?php foreach ($members as $member) : ?>
+          <tbody>
+            <tr>
+              <td><?php echo $member['id'] ?></td>
+              <td><?php echo $member['name'] ?></td>
+              <td><?php echo $member['username'] ?></td>
+            </tr>
+          </tbody>
+          <?php endforeach ?>
+        </table>
+        <a href="addmember.php" class="btn tooltipped btn-floating btn-large waves-effect waves-light black pulse" data-position="bottom" data-tooltip="新增會員" >
+          <i class="material-icons">add</i>
+        </a>
 
-        <tbody>
-          <tr>
-            <td>Alvin</td>
-            <td>Eclair</td>
-            <td>$0.87</td>
-          </tr>
-          <tr>
-            <td>Alan</td>
-            <td>Jellybean</td>
-            <td>$3.76</td>
-          </tr>
-          <tr>
-            <td>Jonathan</td>
-            <td>Lollipop</td>
-            <td>$7.00</td>
-          </tr>
-        </tbody>
-      </table>
+      </div>
     </div>
 
   </main>
@@ -102,7 +96,15 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
   <script>
     $(document).ready(function() {
       $('.sidenav').sidenav();
+      $('.tooltipped').tooltip();
+      
+      $('.tooltipped').on('click',function(){
+        // window.location.href = "addmember.php"
+        window.location.href = "addmember.php";
+        // $(window).attr('location','addmember.php');
 
+
+      })
 
     });
   </script>

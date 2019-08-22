@@ -423,3 +423,73 @@ function update_image($id, $publish)
    }
    return $result;
 }
+
+function get_members()
+{
+   $data = array();
+   $sql = "SELECT * FROM `user`";
+   $query = mysqli_query($_SESSION['link'], $sql);
+
+   if ($query) {
+      if (mysqli_num_rows($query) > 0) {
+         while ($row = mysqli_fetch_assoc($query)) {
+            $data[] = $row;
+         }
+      }
+   } else {
+      echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+   }
+   return $data;
+}
+
+function check_username($un)
+{
+   $result=false;
+   $users=get_members();
+   foreach($users as $user)
+   {
+      if($user['username']==$un)
+      {
+         $result=true;
+      }
+   }
+   return $result;
+}
+
+function check_useremail($email)
+{
+   $result=false;
+   $users=get_members();
+   foreach($users as $user)
+   {
+      if($user['email']==$email)
+      {
+         $result=true;
+      }
+   }
+   return $result;
+}
+
+
+function create_user($n,$un,$pa,$em,$lev)
+{
+
+   $result = null;
+   $password=md5($pa);
+
+
+   $sql = "INSERT INTO `user` (`username`, `password`, `name`, `email`, `level`) VALUE ('{$un}', '{$password}', '{$n}', '{$em}', '{$lev}');";
+
+   $query = mysqli_query($_SESSION['link'], $sql);
+
+   if ($query) {
+      if (mysqli_affected_rows($_SESSION['link']) == 1) {
+
+         $result = true;
+      }
+   } else {
+      echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+   }
+
+   return $result;
+}
