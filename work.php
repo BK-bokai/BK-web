@@ -1,7 +1,8 @@
 <?php
 require_once "php/db.php";
 require_once "php/function.php";
-$images=get_images();
+$webs = get_web();
+$images = get_images();
 // print_r($images);
 ?>
 
@@ -47,29 +48,27 @@ $images=get_images();
   <header>
     <?php include_once "menu.php" ?>
   </header>
-<a href=""></a>
 
   <main>
 
-  <div class="work_list collection container">
-    <a href="#!" class="collection-item"><span class="badge">1</span>Alan</a>
-    <a href="#!" class="collection-item"><span class="new badge">4</span>Alan</a>
-    <a href="#!" class="collection-item">Alan</a>
-    <a href="#!" class="collection-item"><span class="badge">14</span>Alan</a>
-  </div>
-            
-  <div class="fixed-action-btn">
-  <a class="btn-floating btn-large red">
-    <i class="large material-icons">mode_edit</i>
-  </a>
+    <div class="work_list collection container">
+      <?php foreach($webs as $web):?>
+      <a href="<?php echo $web['web_side']?>" target="_blank" class="collection-item"><?php echo $web['title']?></a>
+      <?php endforeach?>
+    </div>
 
-  <ul>
-    <li><a class="btn-floating red" href="https//gmail.com"><i class="material-icons">insert_chart</i></a></li>
-    <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-    <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-    <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-  </ul>
-</div>
+    <!-- <div class="fixed-action-btn">
+      <a class="btn-floating btn-large red">
+        <i class="large material-icons">mode_edit</i>
+      </a>
+
+      <ul>
+        <li><a class="btn-floating red" href="https//gmail.com"><i class="material-icons">insert_chart</i></a></li>
+        <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+        <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+      </ul>
+    </div> -->
   </main>
 
 
@@ -81,7 +80,7 @@ $images=get_images();
     $(document).ready(function() {
       $('.sidenav').sidenav();
       $('.carousel').carousel({
-              
+
       });
       $('.fixed-action-btn').floatingActionButton();
     });

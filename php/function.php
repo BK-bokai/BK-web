@@ -51,6 +51,24 @@ function get_student_skills()
    return $data;
 }
 
+function get_web()
+{
+   $data = array();
+   $sql = "SELECT * FROM `web`";
+   $query = mysqli_query($_SESSION['link'], $sql);
+
+   if ($query) {
+      if (mysqli_num_rows($query) > 0) {
+         while ($row = mysqli_fetch_assoc($query)) {
+            $data[] = $row;
+         }
+      }
+   } else {
+      echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+   }
+   return $data;
+}
+
 function get_work()
 {
    $data = array();
@@ -479,6 +497,45 @@ function create_user($n,$un,$pa,$em,$lev)
 
 
    $sql = "INSERT INTO `user` (`username`, `password`, `name`, `email`, `level`) VALUE ('{$un}', '{$password}', '{$n}', '{$em}', '{$lev}');";
+
+   $query = mysqli_query($_SESSION['link'], $sql);
+
+   if ($query) {
+      if (mysqli_affected_rows($_SESSION['link']) == 1) {
+
+         $result = true;
+      }
+   } else {
+      echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+   }
+
+   return $result;
+}
+
+function del_mem($id)
+{
+   $result = null;
+   $sql = "DELETE FROM `user` WHERE `id` = {$id} ";
+   $query = mysqli_query($_SESSION['link'], $sql);
+
+
+   if ($query) {
+      if (mysqli_affected_rows($_SESSION['link']) == 1) {
+         $result = true;
+      }
+   } else {
+      echo "{$sql} 語法執行失敗，錯誤訊息：" . mysqli_error($_SESSION['link']);
+   }
+   return $result;
+}
+
+function add_web($title, $url)
+{
+
+   $result = null;
+   $create_time = date("Y-m-d H:i:s");
+
+   $sql = "INSERT INTO `web` (`title`, `web_side`, `create_time`) VALUE ('{$title}', '{$url}', '{$create_time}');";
 
    $query = mysqli_query($_SESSION['link'], $sql);
 

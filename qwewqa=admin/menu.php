@@ -13,6 +13,7 @@
       <li><a href="images.php">編輯照片</a></li>
       <li><a href="work.php">編輯作品集</a></li>
       <li><a href="member.php">會員管理</a></li>
+      <li><a href="../php/logout.php">登出</a></li>
     </ul>
   </div>
 
@@ -22,5 +23,6 @@
     <li><a href="images.php">編輯照片</a></li>
     <li><a href="work.php">編輯作品集</a></li>
     <li><a href="member.php">會員管理</a></li>
+    <li><a href="../php/logout.php">登出</a></li>
   </ul>
 </nav>

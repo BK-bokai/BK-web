@@ -2,11 +2,7 @@
 @session_start();
 require_once "../php/db.php";
 require_once "../php/function.php";
-$data = get_index_photo();
-$student = get_student();
-$student_skills = get_student_skills();
-$work = get_work();
-$work_skills = get_work_skills();
+$webs = get_web();
 ?>
 <?php
 
@@ -25,7 +21,7 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>BK-Admin</title>
+  <title>BK</title>
 
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -60,9 +56,56 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
     <?php include_once "menu.php" ?>
   </header>
 
-
   <main>
 
+    <div class="work_list row collection container">
+
+      <?php foreach ($webs as $web) : ?>
+      <div class="col s8">
+        <a href="<?php echo $web['web_side'] ?>" target="_blank" class="collection-item">
+          <?php echo $web['title'] ?>
+        </a>
+      </div>
+      <div class="col s4">
+        <button class="btn waves-effect waves-light red del_work right">刪除
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+      <?php endforeach ?>
+
+    </div>
+
+    <div class="webadd row container">
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="title" type="text" class="validate" required>
+            <label for="title">標題</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="web" type="text" class="validate" required>
+            <label for="web">網址</label>
+          </div>
+        </div>
+
+        <button class="btn waves-effect waves-light" type="submit" name="action">存檔
+          <i class="fas fa-save"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- <div class="fixed-action-btn">
+      <a class="btn-floating btn-large red">
+        <i class="large material-icons">mode_edit</i>
+      </a>
+
+      <ul>
+        <li><a class="btn-floating red" href="https//gmail.com"><i class="material-icons">insert_chart</i></a></li>
+        <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+        <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+      </ul>
+    </div> -->
   </main>
 
 
@@ -72,7 +115,47 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
 
   <script>
     $(document).ready(function() {
+      $('input#input_text, textarea#textarea2').characterCounter();
       $('.sidenav').sidenav();
+      $('.carousel').carousel({
+
+      });
+      $('.fixed-action-btn').floatingActionButton();
+
+      $("form").on('submit', function() {
+        alert($('input#title').val())
+        alert($('input#web').val())
+        $.ajax({
+          type: "POST",
+          url: "../php/addweb.php",
+          data: {
+            title: $('input#title').val(),
+            url: $('input#web').val()
+
+          },
+          dataType: 'html'
+        }).done(function(data) {
+          //成功的時候
+          if (data == "yes") {
+            //註冊新增成功，轉跳到登入頁面。
+            alert("新增成功");
+            location.reload();
+            // window.location.href = "images.php";
+            return false;
+          } else {
+            alert("新增失敗");
+            console.log(data);
+            return false;
+          }
+
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+          //失敗的時候
+          alert("有錯誤產生，請看 console log");
+          console.log(jqXHR.responseText);
+        });
+
+        return false;
+      })
 
 
     });

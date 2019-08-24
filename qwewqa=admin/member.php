@@ -66,7 +66,8 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
             <tr>
               <th>id</th>
               <th>名字</th>
-              <th>帳號</th>
+              <th>帳號 </th>
+              <th>操作</th>
             </tr>
           </thead>
           <?php foreach ($members as $member) : ?>
@@ -75,11 +76,12 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
               <td><?php echo $member['id'] ?></td>
               <td><?php echo $member['name'] ?></td>
               <td><?php echo $member['username'] ?></td>
+              <td> <button data-id="<?php echo $member['id'] ?>" class=" del-btn btn waves-effect waves-light red del_img ">刪除</td>
             </tr>
           </tbody>
           <?php endforeach ?>
         </table>
-        <a href="addmember.php" class="btn tooltipped btn-floating btn-large waves-effect waves-light black pulse" data-position="bottom" data-tooltip="新增會員" >
+        <a href="addmember.php" class="btn tooltipped btn-floating btn-large waves-effect waves-light black pulse" data-position="bottom" data-tooltip="新增會員">
           <i class="material-icons">add</i>
         </a>
 
@@ -97,13 +99,45 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
     $(document).ready(function() {
       $('.sidenav').sidenav();
       $('.tooltipped').tooltip();
-      
-      $('.tooltipped').on('click',function(){
+
+      $('.tooltipped').on('click', function() {
         // window.location.href = "addmember.php"
         window.location.href = "addmember.php";
         // $(window).attr('location','addmember.php');
+      })
 
+      $('.del-btn').on('click', function() {
+        // alert($(this).attr('data-id'))
+        var c = confirm("你確定要刪除此會員嗎?")
+        if (c) {
+          var this_tr=$(this).parent().parent();
+          $.ajax({
+            type: "POST",
+            url: "../php/del_mem.php",
+            data: {
+              id: $(this).attr('data-id'),
+            },
+            dataType: 'html'
+          }).done(function(data) {
 
+            //成功的時候
+            if (data == "yes") {
+              alert("刪除成功");
+              $(this_tr).fadeOut();
+              // alert($(this).parent().parent())
+              return false;
+            } else {
+              alert("刪除錯誤");
+              console.log(data);
+              return false;
+            }
+
+          }).fail(function(jqXHR, textStatus, errorThrown) {
+            //失敗的時候
+            alert("有錯誤產生，請看 console log");
+            console.log(jqXHR.responseText);
+          });
+        }
       })
 
     });
