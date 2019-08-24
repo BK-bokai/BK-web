@@ -58,20 +58,24 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
 
   <main>
 
-    <div class="work_list row collection container">
+    <div class="work_list row container">
 
-      <?php foreach ($webs as $web) : ?>
-      <div class="col s8">
-        <a href="<?php echo $web['web_side'] ?>" target="_blank" class="collection-item">
-          <?php echo $web['title'] ?>
-        </a>
-      </div>
-      <div class="col s4">
-        <button class="btn waves-effect waves-light red del_work right">刪除
-          <i class="fas fa-trash-alt"></i>
-        </button>
-      </div>
-      <?php endforeach ?>
+      <ul class="collection with-header">
+        <li class="collection-header">
+          <h4>作品網站連結</h4>
+        </li>
+        <?php foreach ($webs as $web) : ?>
+        <li class="collection-item">
+          <a href="<?php echo $web['web_side'] ?>" target="_blank">
+            <?php echo $web['title'] ?>
+          </a>
+          <button class="btn waves-effect waves-light red del_work right" data-id='<?php echo $web['id'] ?>'>刪除
+            <i class="fas fa-trash-alt"></i>
+          </button>
+
+        </li>
+        <?php endforeach ?>
+      </ul>
 
     </div>
 
@@ -79,11 +83,11 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
       <form class="col s12">
         <div class="row">
           <div class="input-field col s6">
-            <input id="title" type="text" class="validate" required>
+            <input id="title" type="text" class="validate">
             <label for="title">標題</label>
           </div>
           <div class="input-field col s6">
-            <input id="web" type="text" class="validate" required>
+            <input id="web" type="text" class="validate">
             <label for="web">網址</label>
           </div>
         </div>
@@ -123,38 +127,80 @@ if (!isset($_SESSION['login']) || !$_SESSION['login']) {
       $('.fixed-action-btn').floatingActionButton();
 
       $("form").on('submit', function() {
-        alert($('input#title').val())
-        alert($('input#web').val())
-        $.ajax({
-          type: "POST",
-          url: "../php/addweb.php",
-          data: {
-            title: $('input#title').val(),
-            url: $('input#web').val()
+        // alert($('input#title').val())
+        // alert($('input#web').val())
+        if ($('input#title').val() && $('input#web').val()) {
+          $.ajax({
+            type: "POST",
+            url: "../php/addweb.php",
+            data: {
+              title: $('input#title').val(),
+              url: $('input#web').val()
 
-          },
-          dataType: 'html'
-        }).done(function(data) {
-          //成功的時候
-          if (data == "yes") {
-            //註冊新增成功，轉跳到登入頁面。
-            alert("新增成功");
-            location.reload();
-            // window.location.href = "images.php";
-            return false;
-          } else {
-            alert("新增失敗");
-            console.log(data);
-            return false;
-          }
+            },
+            dataType: 'html'
+          }).done(function(data) {
+            //成功的時候
+            if (data == "yes") {
+              //註冊新增成功，轉跳到登入頁面。
+              alert("新增成功");
+              location.reload();
+              // window.location.href = "images.php";
+              return false;
+            } else {
+              alert("新增失敗");
+              console.log(data);
+              return false;
+            }
 
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-          //失敗的時候
-          alert("有錯誤產生，請看 console log");
-          console.log(jqXHR.responseText);
-        });
-
+          }).fail(function(jqXHR, textStatus, errorThrown) {
+            //失敗的時候
+            alert("有錯誤產生，請看 console log");
+            console.log(jqXHR.responseText);
+          });
+        }
+        else{
+          alert('請填妥標題及網址!!')
+        }
         return false;
+      })
+
+      $('.del_work').on('click', function() {
+        // alert($(this).attr('data-id'))
+        var c = confirm('你確定要刪除此聯結嗎?')
+
+        if (c) {
+          var link = $(this).parent()
+          $.ajax({
+            type: "POST",
+            url: "../php/del_work.php",
+            data: {
+              id: $(this).attr('data-id'),
+            },
+            dataType: 'html'
+          }).done(function(data) {
+            //成功的時候
+            if (data == "yes") {
+              //註冊新增成功，轉跳到登入頁面。
+              alert("刪除成功");
+              link.fadeOut(500)
+              // location.reload();
+              // window.location.href = "images.php";
+              return false;
+            } else {
+              alert("刪除失敗");
+              console.log(data);
+              return false;
+            }
+
+          }).fail(function(jqXHR, textStatus, errorThrown) {
+            //失敗的時候
+            alert("有錯誤產生，請看 console log");
+            console.log(jqXHR.responseText);
+          });
+
+          return false;
+        }
       })
 
 

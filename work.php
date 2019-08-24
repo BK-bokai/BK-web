@@ -51,10 +51,21 @@ $images = get_images();
 
   <main>
 
-    <div class="work_list collection container">
-      <?php foreach($webs as $web):?>
-      <a href="<?php echo $web['web_side']?>" target="_blank" class="collection-item"><?php echo $web['title']?></a>
-      <?php endforeach?>
+    <div class="work_list row container">
+
+      <ul class="collection with-header">
+        <li class="collection-header">
+          <h4>作品網站連結</h4>
+        </li>
+        <?php foreach ($webs as $web) : ?>
+        <li class="collection-item">
+          <a href="<?php echo $web['web_side'] ?>" target="_blank">
+            <?php echo $web['title'] ?>
+          </a>
+        </li>
+        <?php endforeach ?>
+      </ul>
+
     </div>
 
     <!-- <div class="fixed-action-btn">

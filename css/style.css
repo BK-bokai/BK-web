@@ -201,6 +201,6 @@ i.fas.fa-images {
     margin-top: 10vh;
 }
 
-.del_work{
-margin: 0;
+button.btn.waves-effect.waves-light.red.del_work.right {
+    margin-top: -8px;
 }

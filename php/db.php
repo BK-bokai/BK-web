@@ -1,8 +1,8 @@
 <?php
 @session_start();
 $host = "localhost";
-$username = 'root';
-$password = '2841p4204';
+$username = 'bokai';
+$password = '12345678';
 $db = 'bk_db';
 
 $_SESSION['link'] = mysqli_connect($host, $username, $password, $db);

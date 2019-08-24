@@ -12,6 +12,7 @@
       <li><a href="images.php">照片清單</a></li>
       <li><a href="work.php">作品集</a></li>
       <li><a href="login.php">會員登入</a></li>
+      <li><a href="member.php">會員申請</a></li>
     </ul>
   </div>
 
@@ -19,5 +20,7 @@
     <li><a href="index.php">首頁</a></li>
     <li><a href="images.php">照片清單</a></li>
     <li><a href="work.php">作品集</a></li>
+    <li><a href="login.php">會員登入</a></li>
+    <li><a href="member.php">會員申請</a></li>
   </ul>
 </nav>
